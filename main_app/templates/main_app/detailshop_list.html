@@ -3,11 +3,11 @@
 <h1>Detail shop List</h1>
 
 {% for detail_shop in detail_shop_list %}
-<a href="{% url 'detail_shops_detail' detail_shop.id %}">
+<a href="{% url 'detailshops_detail' detailshop.id %}">
   <div class="card">
     <div class="card-content">
-      <span class="card-title">{{ detail_shop.name }}</span>
-      <p>Location: {{ detail_shop.location }}</p>
+      <span class="card-title">{{ detailshop.name }}</span>
+      <p>Location: {{ detailshop.location }}</p>
     </div>
   </div>
 </a>
