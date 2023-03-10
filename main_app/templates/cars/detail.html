@@ -41,6 +41,41 @@
     </table>
   </div>
 </div>
+
+<hr />
+<div class="row">
+  <div class="col s6">
+    <h3>{{ car.name }}'s Detail shops</h3>
+    {% if car.detail_shop.count %} {% for detail_shop in car.detail_shops.all %}
+    <div class="card">
+      <div class="card-content"></div>
+    </div>
+    {% endfor %} {% else %}
+    <h5>No Detail :(</h5>
+    {% endif %}
+  </div>
+
+  <div class="col s6">
+    <h3>Available Toys</h3>
+    {% if detail_shops.count %} {% for detail_shop in detail_shops.all %}
+    <div class="card">
+      <div class="card-content"></div>
+      <div class="card-action">
+        <form
+          action="{url 'assoc_detail_shop' car.id detail_shop.id %}"
+          method="post"
+        >
+          {% csrf_token %}
+          <button type="submit" class="btn">Add</button>
+        </form>
+      </div>
+    </div>
+    {% endfor %} {% else %}
+    <h5>{{car.name}} Already Has All detail shops Available</h5>
+    {% endif %}
+  </div>
+</div>
+
 <script>
   const dateEl = document.getElementById("id_date");
   M.Datepicker.init(dateEl, {

@@ -10,7 +10,7 @@ GASES = (
 
 # Create your models here.
 
-class Detail_shop(models.Model):
+class DetailShop(models.Model):
     name = models.CharField(max_length=50)
     location = models.CharField(max_length=100)
 
@@ -25,7 +25,7 @@ class Car(models.Model):
     model = models.CharField(max_length=100)
     description = models.TextField(max_length=300)
     year = models.IntegerField('year')
-    detail_shops = models.ManyToManyField(Detail_shop)
+    detail_shops = models.ManyToManyField(DetailShop)
 
 
 

@@ -4,7 +4,9 @@
 
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Car
+from django.views.generic import ListView, DetailView
+
+from .models import Car, DetailShop
 from .forms import GassingForm
 
 # Add the following import
@@ -23,8 +25,9 @@ def cars_index(request):
 
 def cars_detail(request, car_id):
   car = Car.objects.get(id=car_id)
+  detail_shops_car_doesnt_have = DetailShop.objects.exclude(id__in = car.detail_shops.all().values_list('id'))
   gassing_form = GassingForm()
-  return render(request, 'cars/detail.html', {'car': car, 'gassing_form': gassing_form})
+  return render(request, 'cars/detail.html', {'car': car, 'gassing_form': gassing_form, 'detail_shops':detail_shops_car_doesnt_have})
 
 def add_gassing(request, car_id):
   form = GassingForm(request.POST)
@@ -53,4 +56,25 @@ class CarDelete(DeleteView):
   model = Car
   success_url = '/cars/'
 
-  
+class DetailShopList(ListView):
+  model = DetailShop
+
+class DetailShopDetail(DetailView):
+  model = DetailShop
+
+class DetailShopCreate(CreateView):
+  model = DetailShop 
+  fields = '_all_'
+
+class DetailShopUpdate(UpdateView):
+  model = DetailShop
+  fields = ['name', 'location']
+
+class DetailShopDelete(DeleteView):
+  model = DetailShop 
+  success_url = '/detail_shops/'
+
+
+def assoc_detail_shop(request, car_id, detail_shop_id):
+  Car.objects.get(id=car_id).detail_shops.add(detail_shop_id)
+  return redirect('detail', car_id=car_id) 
