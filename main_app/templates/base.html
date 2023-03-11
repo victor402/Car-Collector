@@ -28,7 +28,11 @@
             </li>
           </ul>
           <ul class="right">
-            <li><a href="/about">About</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'detailshops_create' %}">Add a detailer</a></li>
+            <li>
+              <a href="{% url 'detailshops_index' %}">View all detailer</a>
+            </li>
             <li><a href="{% url 'cars_create' %}">Add a car</a></li>
             <li><a href="{% url 'index' %}">view cars</a></li>
           </ul>
